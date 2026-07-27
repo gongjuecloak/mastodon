@@ -11088,3 +11088,30 @@ noscript {
     gap: 4px;
   }
 }
+
+
+/* nine-grid layouts (WeChat-Moments style) */
+.media-gallery--layout-5,
+.media-gallery--layout-6 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  min-height: calc(64px * 2 + 8px);
+}
+
+.media-gallery--layout-7,
+.media-gallery--layout-8,
+.media-gallery--layout-9 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  min-height: calc(64px * 3 + 12px);
+}
+
+.media-gallery--layout-5 > .media-gallery__item,
+.media-gallery--layout-6 > .media-gallery__item,
+.media-gallery--layout-7 > .media-gallery__item,
+.media-gallery--layout-8 > .media-gallery__item,
+.media-gallery--layout-9 > .media-gallery__item {
+  border-radius: 0;
+  grid-row: auto;
+  grid-column: auto;
+}

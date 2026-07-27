@@ -103,6 +103,11 @@ class Item extends PureComponent {
       height = 50;
     }
 
+    if (size > 4) {
+      width = 33;
+      height = 33;
+    }
+
     const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
 
     if (description?.length > 0) {
@@ -307,6 +312,8 @@ class MediaGallery extends PureComponent {
 
     if (this.isFullSizeEligible()) {
       style.aspectRatio = `${this.props.media.getIn([0, 'meta', 'small', 'aspect'])}`;
+    } else if (media.size > 6) {
+      style.aspectRatio = '1';
     } else {
       style.aspectRatio = '3 / 2';
     }
