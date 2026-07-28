@@ -43,10 +43,62 @@ class TextFormatter
       end
     end
 
-    html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
+    if markdown?
+      html = markdown_render(html)
+    else
+      html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
+    end
+
     html = add_quote_fallback(html) if options[:quoted_status].present?
 
+    html = sanitize_markdown(html) if markdown?
+
     html.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
+  def markdown?
+    return @markdown if defined?(@markdown)
+
+    @markdown = text.match?(/\A\#{1,6}\s/m) ||
+                text.match?(/^\s*[-*+]\s+/m) ||
+                text.include?('```') ||
+                text.match?(/\*\*[^*]+\*\*/) ||
+                text.match?(/__[^_]+__/) ||
+                text.match?(/~~[^~]+~~/) ||
+                text.match?(/^\s*>\s?/m) ||
+                text.match?(/\[[^\]]+\]\([^)]+\)/)
+  end
+
+  def markdown_render(input)
+    input = input.gsub(/^(\s*)&gt;/, '\1>') if input.include?('&gt;')
+    Redcarpet::Markdown.new(
+      Redcarpet::Render::HTML,
+      no_intra_emphasis: true,
+      autolink: true,
+      strikethrough: true,
+      underline: true,
+      highlight: true,
+      fenced_code_blocks: true,
+      tables: true,
+      hard_wrap: true,
+      space_after_headers: true,
+    ).render(input)
+  end
+
+  def markdown_sanitize_config
+    @markdown_sanitize_config ||= Sanitize::Config::MASTODON_STRICT.merge(
+      elements: %w(p br span a del s pre blockquote code b strong u i em ul ol li ruby rt rp h1 h2 h3 h4 h5 h6),
+      transformers: [
+        Sanitize::Config::ALLOWED_CLASS_TRANSFORMER,
+        Sanitize::Config::TRANSLATE_TRANSFORMER,
+        Sanitize::Config::MATH_TRANSFORMER,
+        Sanitize::Config::UNSUPPORTED_HREF_TRANSFORMER,
+      ]
+    ).freeze
+  end
+
+  def sanitize_markdown(input)
+    Sanitize.fragment(input, markdown_sanitize_config)
   end
 
   class << self

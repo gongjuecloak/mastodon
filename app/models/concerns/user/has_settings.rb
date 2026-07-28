@@ -71,6 +71,26 @@ module User::HasSettings
     settings['web.contrast']
   end
 
+  def setting_web_font
+    settings['web.font']
+  end
+
+  def setting_web_font_size
+    settings['web.font_size']
+  end
+
+  def setting_web_line_height
+    settings['web.line_height']
+  end
+
+  def setting_web_accent
+    settings['web.accent']
+  end
+
+  def setting_web_density
+    settings['web.density']
+  end
+
   def setting_display_media
     settings['web.display_media']
   end

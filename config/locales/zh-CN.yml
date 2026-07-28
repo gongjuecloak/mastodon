@@ -2167,6 +2167,35 @@ zh-CN:
     title: "%{domain} 更新了服务条款"
   themes:
     default: Mastodon
+    forest_isle: 森屿
+    paper: 纸感
+  fonts:
+    system: 系统默认
+    source-han: 思源黑体
+    pingfang: 苹方
+    wenkai: 霞鹜文楷（推荐）
+  font_sizes:
+    small: 小
+    medium: 中
+    large: 大
+    xlarge: 特大
+  line_heights:
+    compact: 紧凑
+    normal: 标准
+    relaxed: 舒展
+    loose: 宽松
+  accents:
+    forest: 森屿绿
+    blue: 海蓝
+    pink: 樱粉
+    cyan: 青色
+    purple: 紫罗兰
+    sun: 暖阳橙
+
+  densities:
+    compact: 紧凑
+    cozy: 舒适
+    roomy: 宽松
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"

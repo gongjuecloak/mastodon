@@ -47,6 +47,7 @@
   background: var(--color-bg-primary);
   border: 1px solid var(--color-border-primary);
   border-radius: var(--avatar-border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12); // CUSTOM: floating avatar
 
   .moved & {
     filter: grayscale(100%);
@@ -280,10 +281,25 @@ $button-fallback-breakpoint: $button-breakpoint + 55px;
 
 .note {
   margin-bottom: 16px;
+
+  // CUSTOM: bio as rounded paper card
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  [data-color-scheme='dark'] & {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .noteContent {
   white-space-collapse: preserve-breaks;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  font-size: 15px;
 }
 
 .noteEditButton {
@@ -301,7 +317,7 @@ $button-fallback-breakpoint: $button-breakpoint + 55px;
   position: relative;
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
-  gap: 4px;
+  gap: 8px;
   margin: 16px 0;
 
   @container (width < 420px) {
@@ -314,6 +330,12 @@ $button-fallback-breakpoint: $button-breakpoint + 55px;
 
   grid-column: span var(--col-span);
   position: relative;
+
+  // CUSTOM: profile metadata fields as rounded cards
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 12px;
+  padding: 10px 12px;
 
   @for $col from 2 through 4 {
     &[data-cols='#{$col}'] {

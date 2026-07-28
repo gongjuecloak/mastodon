@@ -73,6 +73,8 @@ const mapStateToProps = state => ({
 });
 
 class StatusContent extends PureComponent {
+  state = { long: false };
+
   static propTypes = {
     identity: identityContextPropShape,
     status: ImmutablePropTypes.map.isRequired,
@@ -109,14 +111,69 @@ class StatusContent extends PureComponent {
 
       onCollapsedToggle(collapsed);
     }
+
+    const isLong = !!(this.props.onClick && node.clientHeight > MAX_HEIGHT);
+    if (this.state.long !== isLong) {
+      this.setState({ long: isLong });
+    }
   }
 
   componentDidMount () {
     this._updateStatusLinks();
+    this._bindScroll();
   }
 
   componentDidUpdate () {
     this._updateStatusLinks();
+  }
+
+  componentWillUnmount () {
+    this._unbindScroll();
+  }
+
+  _bindScroll () {
+    if (this._scrollHandler) {
+      return;
+    }
+    this._scrollHandler = () => {
+      if (this._raf) {
+        return;
+      }
+      this._raf = requestAnimationFrame(() => {
+        this._raf = null;
+        this._updateProgress();
+      });
+    };
+    window.addEventListener('scroll', this._scrollHandler, { passive: true });
+    window.addEventListener('resize', this._scrollHandler, { passive: true });
+    this._updateProgress();
+  }
+
+  _unbindScroll () {
+    if (this._scrollHandler) {
+      window.removeEventListener('scroll', this._scrollHandler);
+      window.removeEventListener('resize', this._scrollHandler);
+      this._scrollHandler = null;
+    }
+  }
+
+  _updateProgress () {
+    const node = this.node;
+    const fill = this.progressFill;
+    if (!node || !fill) {
+      return;
+    }
+    const rect = node.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.height <= vh) {
+      fill.style.width = '100%';
+      return;
+    }
+    const total = rect.height + vh;
+    const seen = vh - rect.top;
+    let pct = (seen / total) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    fill.style.width = pct + '%';
   }
 
   handleMouseDown = (e) => {
@@ -197,6 +254,13 @@ class StatusContent extends PureComponent {
       'status__content--collapsed': renderReadMore,
     });
 
+    const showProgress = this.state.long && !renderReadMore;
+    const progressBar = showProgress ? (
+      <div className='status__content__progress' key='progress'>
+        <div className='status__content__progress-fill' ref={c => { this.progressFill = c; }} />
+      </div>
+    ) : null;
+
     const readMoreButton = renderReadMore && (
       <button className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
         <FormattedMessage id='status.read_more' defaultMessage='Read more' /><Icon id='angle-right' icon={ChevronRightIcon} />
@@ -214,6 +278,7 @@ class StatusContent extends PureComponent {
     if (this.props.onClick) {
       return (
         <>
+          {progressBar}
           <div
             className={classNames}
             ref={this.setRef}
@@ -238,7 +303,9 @@ class StatusContent extends PureComponent {
       );
     } else {
       return (
-        <div className={classNames} ref={this.setRef}>
+        <>
+          {progressBar}
+          <div className={classNames} ref={this.setRef}>
           <EmojiHTML
             className='status__content__text status__content__text--visible translate'
             lang={language}
@@ -250,6 +317,7 @@ class StatusContent extends PureComponent {
           {poll}
           {translateButton}
         </div>
+        </>
       );
     }
   }

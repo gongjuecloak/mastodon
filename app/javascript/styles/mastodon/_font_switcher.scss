@@ -1,0 +1,160 @@
+// 字体切换：<html data-font="..."> 由「设置 -> 外观 -> 字体」控制（无需刷新整站）
+// 霞鹜文楷(LXGW WenKai Screen) 已自托管于 /fonts/lxgw-wenkai-screen/style.css
+
+$font-system: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC",
+  "Noto Sans SC", "WenQuanYi Micro Hei", sans-serif;
+
+$font-source-han: "Source Han Sans SC", "Source Han Sans CN", "Noto Sans SC",
+  "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB",
+  "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+
+$font-pingfang: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans SC",
+  "WenQuanYi Micro Hei", sans-serif;
+
+$font-wenkai: "LXGW WenKai Screen", "Source Han Sans SC", "PingFang SC",
+  -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB",
+  "Microsoft YaHei", sans-serif;
+
+html[data-font='system'],
+html[data-font='system'] body {
+  --font-body: #{$font-system};
+  --font-sans-serif: #{$font-system};
+}
+
+html[data-font='source-han'],
+html[data-font='source-han'] body {
+  --font-body: #{$font-source-han};
+  --font-sans-serif: #{$font-source-han};
+}
+
+html[data-font='pingfang'],
+html[data-font='pingfang'] body {
+  --font-body: #{$font-pingfang};
+  --font-sans-serif: #{$font-pingfang};
+}
+
+html[data-font='wenkai'],
+html[data-font='wenkai'] body {
+  --font-body: #{$font-wenkai};
+  --font-sans-serif: #{$font-wenkai};
+}
+
+
+// 字号调节：<html data-font-size="..."> 控制正文阅读字号（固定 px，独立于 UI 缩放，避免破坏布局）
+$font-sizes: (
+  'small': 14px,
+  'medium': 15px,
+  'large': 17px,
+  'xlarge': 19px,
+);
+
+@each $name, $size in $font-sizes {
+  html[data-font-size='#{$name}'] {
+    .status__content,
+    .edit-indicator__content,
+    .reply-indicator__content,
+    .account__header__note {
+      font-size: $size;
+    }
+  }
+}
+
+// 行高调节：<html data-line-height="..."> 控制正文行距（无单位，随字号自然伸缩）
+$line-heights: (
+  'compact': 1.35,
+  'normal': 1.55,
+  'relaxed': 1.75,
+  'loose': 1.95,
+);
+
+@each $name, $lh in $line-heights {
+  html[data-line-height='#{$name}'] {
+    .status__content,
+    .edit-indicator__content,
+    .reply-indicator__content,
+    .account__header__note {
+      line-height: $lh;
+    }
+  }
+}
+
+// 强调色自定义：<html data-accent="..."> 覆盖品牌主色（链接/按钮/高亮），深浅模式均生效
+html[data-accent='blue'] {
+  --color-text-brand: #4a90d9;
+  --color-text-brand-soft: #74abe6;
+  --color-text-status-links: #4a90d9;
+  --color-bg-brand-base: #3d82cf;
+  --color-bg-brand-base-hover: #4a90d9;
+  --color-bg-brand-soft: rgba(74, 144, 217, 0.12);
+  --color-bg-brand-softest: rgba(74, 144, 217, 0.06);
+  --color-border-brand: #3d82cf;
+  --color-border-brand-soft: rgba(74, 144, 217, 0.28);
+}
+
+html[data-accent='pink'] {
+  --color-text-brand: #e06a9c;
+  --color-text-brand-soft: #ec8db4;
+  --color-text-status-links: #e06a9c;
+  --color-bg-brand-base: #d65d92;
+  --color-bg-brand-base-hover: #e06a9c;
+  --color-bg-brand-soft: rgba(224, 106, 156, 0.12);
+  --color-bg-brand-softest: rgba(224, 106, 156, 0.06);
+  --color-border-brand: #d65d92;
+  --color-border-brand-soft: rgba(224, 106, 156, 0.28);
+}
+
+html[data-accent='cyan'] {
+  --color-text-brand: #3fb8b0;
+  --color-text-brand-soft: #6ccac3;
+  --color-text-status-links: #3fb8b0;
+  --color-bg-brand-base: #35a8a0;
+  --color-bg-brand-base-hover: #3fb8b0;
+  --color-bg-brand-soft: rgba(63, 184, 176, 0.12);
+  --color-bg-brand-softest: rgba(63, 184, 176, 0.06);
+  --color-border-brand: #35a8a0;
+  --color-border-brand-soft: rgba(63, 184, 176, 0.28);
+}
+
+html[data-accent='purple'] {
+  --color-text-brand: #9b7ed9;
+  --color-text-brand-soft: #b6a1e6;
+  --color-text-status-links: #9b7ed9;
+  --color-bg-brand-base: #8d6fd0;
+  --color-bg-brand-base-hover: #9b7ed9;
+  --color-bg-brand-soft: rgba(155, 126, 217, 0.12);
+  --color-bg-brand-softest: rgba(155, 126, 217, 0.06);
+  --color-border-brand: #8d6fd0;
+  --color-border-brand-soft: rgba(155, 126, 217, 0.28);
+}
+
+html[data-accent='sun'] {
+  --color-text-brand: #e0934a;
+  --color-text-brand-soft: #ecab6d;
+  --color-text-status-links: #e0934a;
+  --color-bg-brand-base: #d6853d;
+  --color-bg-brand-base-hover: #e0934a;
+  --color-bg-brand-soft: rgba(224, 147, 74, 0.12);
+  --color-bg-brand-softest: rgba(224, 147, 74, 0.06);
+  --color-border-brand: #d6853d;
+  --color-border-brand-soft: rgba(224, 147, 74, 0.28);
+}
+
+// forest（默认）不覆盖，沿用各主题自带森屿绿
+
+// 卡片密度：<html data-density="..."> 控制时间线卡片间距（紧凑/舒适/宽松）
+html[data-density='compact'] .status,
+html[data-density='compact'] .status__wrapper {
+  margin-bottom: 4px;
+}
+
+html[data-density='cozy'] .status,
+html[data-density='cozy'] .status__wrapper {
+  margin-bottom: 10px;
+}
+
+html[data-density='roomy'] .status,
+html[data-density='roomy'] .status__wrapper {
+  margin-bottom: 18px;
+}

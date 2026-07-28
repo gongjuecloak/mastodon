@@ -40,6 +40,12 @@ class UserSettings
     setting :emoji_style, default: 'auto', in: %w(auto native twemoji)
     setting :color_scheme, default: 'auto', in: %w(auto light dark)
     setting :contrast, default: 'auto', in: %w(auto high)
+
+    setting :font, default: 'wenkai', in: %w(system source-han pingfang wenkai)
+    setting :font_size, default: 'medium', in: %w(small medium large xlarge)
+    setting :line_height, default: 'normal', in: %w(compact normal relaxed loose)
+    setting :accent, default: 'forest', in: %w(forest blue pink cyan purple sun)
+    setting :density, default: 'cozy', in: %w(compact cozy roomy)
   end
 
   namespace :notification_emails do

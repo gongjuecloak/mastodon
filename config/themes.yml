@@ -1,1 +1,3 @@
 default: styles/application.scss
+forest_isle: styles/forest_isle.scss
+paper: styles/paper.scss

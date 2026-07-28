@@ -33,6 +33,47 @@
                    wrapper: :with_label,
                    required: false
 
+      .fields-group
+        = ff.input :'web.font',
+                   collection: user_settings_collection('web.font'),
+                   include_blank: false,
+                   label_method: ->(font) { I18n.t("fonts.#{font}", default: font) },
+                   label: I18n.t('simple_form.labels.defaults.setting_font'),
+                   wrapper: :with_label,
+                   required: false
+
+      .fields-group
+        = ff.input :'web.font_size',
+                   collection: user_settings_collection('web.font_size'),
+                   include_blank: false,
+                   label_method: ->(s) { I18n.t("font_sizes.#{s}", default: s) },
+                   label: I18n.t('simple_form.labels.defaults.setting_font_size'),
+                   wrapper: :with_label,
+                   required: false
+        = ff.input :'web.line_height',
+                   collection: user_settings_collection('web.line_height'),
+                   include_blank: false,
+                   label_method: ->(s) { I18n.t("line_heights.#{s}", default: s) },
+                   label: I18n.t('simple_form.labels.defaults.setting_line_height'),
+                   wrapper: :with_label,
+                   required: false
+        = ff.input :'web.accent',
+                   collection: user_settings_collection('web.accent'),
+                   include_blank: false,
+                   label_method: ->(s) { I18n.t("accents.#{s}", default: s) },
+                   label: I18n.t('simple_form.labels.defaults.setting_accent'),
+                   wrapper: :with_label,
+                   required: false
+
+      .fields-group
+        = ff.input :'web.density',
+                   collection: user_settings_collection('web.density'),
+                   include_blank: false,
+                   label_method: ->(s) { I18n.t("densities.#{s}", default: s) },
+                   label: I18n.t('simple_form.labels.defaults.setting_density'),
+                   wrapper: :with_label,
+                   required: false
+
       .input.horizontal-options
         = ff.input :'web.color_scheme',
                    as: :radio_buttons,

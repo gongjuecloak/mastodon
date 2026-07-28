@@ -165,9 +165,35 @@ module ApplicationHelper
       'data-color-scheme': page_color_scheme.parameterize,
     }
 
+    base[:'data-font'] = web_font
+    base[:'data-font-size'] = web_font_size
+    base[:'data-line-height'] = web_line_height
+    base[:'data-accent'] = web_accent
+    base[:'data-density'] = web_density
+
     base[:'data-system-theme'] = 'true' if page_color_scheme == 'auto'
 
     base
+  end
+
+  def web_font
+    current_user&.setting_web_font || 'wenkai'
+  end
+
+  def web_font_size
+    current_user&.setting_web_font_size || 'medium'
+  end
+
+  def web_line_height
+    current_user&.setting_web_line_height || 'normal'
+  end
+
+  def web_accent
+    current_user&.setting_web_accent || 'forest'
+  end
+
+  def web_density
+    current_user&.setting_web_density || 'cozy'
   end
 
   def html_classes

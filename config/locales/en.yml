@@ -2217,6 +2217,35 @@ en:
     title: The terms of service of %{domain} are changing
   themes:
     default: Mastodon
+    forest_isle: Forest Isle
+    paper: Paper (warm)
+  fonts:
+    system: System default
+    source-han: Source Han Sans
+    pingfang: PingFang SC
+    wenkai: LXGW WenKai (recommended)
+  font_sizes:
+    small: Small
+    medium: Medium
+    large: Large
+    xlarge: Extra large
+  line_heights:
+    compact: Compact
+    normal: Normal
+    relaxed: Relaxed
+    loose: Loose
+  accents:
+    forest: Forest Green
+    blue: Ocean Blue
+    pink: Sakura Pink
+    cyan: Cyan
+    purple: Purple
+    sun: Warm Sun
+
+  densities:
+    compact: Compact
+    cozy: Cozy
+    roomy: Roomy
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

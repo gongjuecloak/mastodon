@@ -1,0 +1,165 @@
+/* =========================================================================
+   纸感 (Paper) 主题
+   米黄护眼底色 + 小森林风格元素（虚线标签、圆角卡片、主题色竖线引用）
+   浅色为纸感米黄；深色为暖夜棕调，均护眼不刺眼。
+   ========================================================================= */
+
+/* --- 浅色：纸感米黄（护眼，长时间阅读舒适） --- */
+[data-color-scheme='light'],
+html:not([data-color-scheme]) {
+  --color-bg-primary: #f7f3ea;
+  --color-bg-secondary: #f1ece0;
+  --color-bg-tertiary: #eae3d3;
+  --color-bg-blend: rgba(120, 90, 60, 0.04);
+  --color-bg-highlight: rgba(120, 90, 60, 0.05);
+  --color-bg-inverted: #3a352b;
+  --color-text-primary: #3b362c;
+  --color-text-secondary: #6f6655;
+  --color-text-tertiary: #948a76;
+  --color-text-inverted: #f7f3ea;
+  --color-text-brand: #6f8f4e;
+  --color-text-brand-soft: #8aa866;
+  --color-text-on-brand-base: #ffffff;
+  --color-text-status-links: #6f8f4e;
+  --color-bg-brand-base: #6f8f4e;
+  --color-bg-brand-base-hover: #7fa05b;
+  --color-bg-brand-soft: rgba(111, 143, 78, 0.12);
+  --color-bg-brand-softest: rgba(111, 143, 78, 0.06);
+  --color-border-primary: #ddd4c0;
+  --color-border-brand: #6f8f4e;
+  --color-border-brand-soft: rgba(111, 143, 78, 0.28);
+  --color-bg-media: rgba(60, 45, 30, 0.5);
+}
+
+/* --- 深色：暖夜棕调（护眼，呼应纸感暖色） --- */
+[data-color-scheme='dark'] {
+  --color-bg-primary: #23201a;
+  --color-bg-secondary: #2a2620;
+  --color-bg-tertiary: #322d25;
+  --color-bg-blend: rgba(220, 200, 170, 0.04);
+  --color-bg-highlight: rgba(220, 200, 170, 0.05);
+  --color-bg-inverted: #e9e0cf;
+  --color-text-primary: #ddd2bd;
+  --color-text-secondary: #b3a78f;
+  --color-text-tertiary: #8a7f68;
+  --color-text-inverted: #23201a;
+  --color-text-brand: #9fc07a;
+  --color-text-brand-soft: #b4cf93;
+  --color-text-on-brand-base: #1c1a14;
+  --color-text-status-links: #9fc07a;
+  --color-bg-brand-base: #8aab63;
+  --color-bg-brand-base-hover: #9fc07a;
+  --color-bg-brand-soft: rgba(159, 192, 122, 0.12);
+  --color-bg-brand-softest: rgba(159, 192, 122, 0.06);
+  --color-border-primary: #3a342b;
+  --color-border-brand: #8aab63;
+  --color-border-brand-soft: rgba(159, 192, 122, 0.28);
+  --color-bg-media: rgba(20, 15, 10, 0.65);
+}
+
+/* --- 虚线描边胶囊标签（复刻小森林，颜色随主题变量自动适配） --- */
+.hashtag,
+.status__content a.hashtag,
+.status__content a.mention:not(.hashtag),
+.reply-indicator__content a.hashtag,
+.reply-indicator__content a.mention:not(.hashtag) {
+  color: var(--color-text-brand);
+  background: var(--color-bg-brand-softest);
+  border: 1px dashed var(--color-text-brand);
+  border-radius: 5px;
+  padding: 0 6px;
+  margin: 1px 2px;
+  text-decoration: none !important;
+  display: inline-block;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  span {
+    text-decoration: none !important;
+  }
+
+  &:hover,
+  &:focus {
+    background: var(--color-bg-brand-soft);
+    border-style: solid;
+    text-decoration: none !important;
+  }
+}
+
+.muted .status__content a {
+  border-color: var(--color-text-tertiary);
+}
+
+/* --- 圆角卡片 + 悬停浮起 --- */
+.status-card {
+  border-radius: 12px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  &.bottomless {
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+a.status-card {
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+    border-color: var(--color-border-brand-soft);
+    box-shadow: 0 6px 18px rgba(60, 45, 30, 0.12);
+  }
+}
+
+.status-card__image,
+.status-card__image-image,
+.status-card__image-preview {
+  border-start-start-radius: 12px;
+  border-end-start-radius: 12px;
+}
+
+/* --- trends 栏样式 --- */
+.column .getting-started__trends .trends__item:nth-child(2),
+.column .getting-started__trends .trends__item:nth-child(3),
+.column .getting-started__trends .trends__item:last-child {
+  background: var(--color-bg-tertiary);
+}
+
+.column .getting-started__trends h4 {
+  background: var(--color-bg-primary);
+  color: var(--color-text-tertiary);
+  padding: 0 20px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: default;
+  border-bottom: 0;
+}
+
+/* --- 正文引用块：主题色竖线 --- */
+.status__content__text blockquote,
+.reply-indicator__content blockquote {
+  padding-inline-start: 10px;
+  border-inline-start: 3px solid var(--color-border-brand-soft);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-brand-softest);
+  border-radius: 0 6px 6px 0;
+}
+
+/* --- 纸感氛围背景 --- */
+[data-color-scheme='light'],
+html:not([data-color-scheme]) {
+  body {
+    background-image: radial-gradient(130% 90% at 50% -15%, rgba(111, 143, 78, 0.07), transparent 55%);
+    background-attachment: fixed;
+  }
+}
+
+[data-color-scheme='dark'] {
+  body {
+    background-image: radial-gradient(130% 90% at 50% -15%, rgba(159, 192, 122, 0.08), transparent 55%);
+    background-attachment: fixed;
+  }
+}

@@ -1,0 +1,149 @@
+/* =========================================================================
+   森屿 (Forest Isle) 主题增强
+   复刻小森林 (mashirozx/mastodon) 本体样式：
+   1) 苹方优先的易读无衬线字体栈（长时间阅读不累眼）
+   2) 森林绿配色 token 覆盖（深色为默认；浅色回退 Mastodon 标准白底）
+   3) 虚线描边胶囊标签（来自 mashirozx customize/global.scss）
+   4) 圆角卡片 + 悬停浮起（小森林柔和质感）
+   5) trends 栏样式（来自 mashirozx customize/global.scss）
+   ========================================================================= */
+
+/* --- 2. 森林绿配色 token 覆盖（深色为默认；浅色不覆盖，回退标准白底） --- */
+
+/* 深色：深林炭黑底 + 沉稳森林绿（护眼、不刺眼）。作用范围与基础 token 一致，
+   同时作用于 html 无属性的兜底情况。设为默认外观。 */
+[data-color-scheme='dark'],
+html:not([data-color-scheme]) {
+  /* 深林炭黑底（比原 #343434 更深，告别"发亮"） */
+  --color-bg-primary: #1d201c;
+  --color-bg-secondary: #242821;
+  --color-bg-tertiary: #2c302a;
+  --color-bg-blend: rgba(200, 220, 205, 0.04);
+  --color-bg-highlight: rgba(200, 220, 205, 0.05);
+  --color-bg-inverted: #c9d6cd;
+
+  /* 正文用雾绿灰而非近白，降低刺眼感 */
+  --color-text-primary: #c0ccc2;
+  --color-text-secondary: #93b29e;
+  --color-text-tertiary: #6e7c72;
+  --color-text-inverted: #1d201c;
+
+  /* 品牌绿调沉，去掉荧光感 */
+  --color-text-brand: #57bd80;
+  --color-text-brand-soft: #79c69a;
+  --color-text-on-brand-base: #ffffff;
+  --color-text-status-links: #57bd80;
+
+  --color-bg-brand-base: #4aa371;
+  --color-bg-brand-base-hover: #57bd80;
+  --color-bg-brand-soft: rgba(87, 189, 128, 0.12);
+  --color-bg-brand-softest: rgba(87, 189, 128, 0.06);
+
+  --color-border-primary: #33382f;
+  --color-border-brand: #4aa371;
+  --color-border-brand-soft: rgba(87, 189, 128, 0.28);
+
+  --color-bg-media: rgba(8, 12, 9, 0.65);
+}
+
+
+
+/* --- 3. 虚线描边胶囊标签（复刻 mashirozx customize/global.scss） --- */
+.hashtag,
+.status__content a.hashtag,
+.status__content a.mention:not(.hashtag),
+.reply-indicator__content a.hashtag,
+.reply-indicator__content a.mention:not(.hashtag) {
+  color: var(--color-text-brand);
+  background: var(--color-bg-brand-softest);
+  border: 1px dashed var(--color-text-brand);
+  border-radius: 5px;
+  padding: 0 6px;
+  margin: 1px 2px;
+  text-decoration: none !important;
+  display: inline-block;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  span {
+    text-decoration: none !important;
+  }
+
+  &:hover,
+  &:focus {
+    background: var(--color-bg-brand-soft);
+    border-style: solid;
+    text-decoration: none !important;
+  }
+}
+
+.muted .status__content a {
+  border-color: var(--color-text-tertiary);
+}
+
+/* --- 4. 圆角卡片 + 悬停浮起（小森林柔和质感） --- */
+.status-card {
+  border-radius: 12px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  &.bottomless {
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+a.status-card {
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+    border-color: var(--color-border-brand-soft);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.status-card__image,
+.status-card__image-image,
+.status-card__image-preview {
+  border-start-start-radius: 12px;
+  border-end-start-radius: 12px;
+}
+
+/* --- 5. trends 栏样式（复刻 mashirozx customize/global.scss） --- */
+.column .getting-started__trends .trends__item:nth-child(2),
+.column .getting-started__trends .trends__item:nth-child(3),
+.column .getting-started__trends .trends__item:last-child {
+  background: var(--color-bg-tertiary);
+}
+
+.column .getting-started__trends h4 {
+  background: var(--color-bg-primary);
+  color: var(--color-text-tertiary);
+  padding: 0 20px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: default;
+  border-bottom: 0;
+}
+
+/* 正文引用块：森林绿竖线，呼应主题 */
+.status__content__text blockquote,
+.reply-indicator__content blockquote {
+  padding-inline-start: 10px;
+  border-inline-start: 3px solid var(--color-border-brand-soft);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-brand-softest);
+  border-radius: 0 6px 6px 0;
+}
+
+/* --- 6. 森屿氛围背景（深色：极淡森林绿光晕，提升质感不刺眼） --- */
+[data-color-scheme='dark'],
+html:not([data-color-scheme]) {
+  body {
+    background-image: radial-gradient(130% 90% at 50% -15%, rgba(87, 189, 128, 0.10), transparent 55%);
+    background-attachment: fixed;
+  }
+}

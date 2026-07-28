@@ -11088,3 +11088,402 @@ noscript {
     gap: 4px;
   }
 }
+
+
+/* nine-grid layouts (WeChat-Moments style) */
+.media-gallery--layout-5,
+.media-gallery--layout-6 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  min-height: calc(64px * 2 + 8px);
+}
+
+.media-gallery--layout-7,
+.media-gallery--layout-8,
+.media-gallery--layout-9 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  min-height: calc(64px * 3 + 12px);
+}
+
+.media-gallery--layout-5 > .media-gallery__item,
+.media-gallery--layout-6 > .media-gallery__item,
+.media-gallery--layout-7 > .media-gallery__item,
+.media-gallery--layout-8 > .media-gallery__item,
+.media-gallery--layout-9 > .media-gallery__item {
+  border-radius: 0;
+  grid-row: auto;
+  grid-column: auto;
+}
+/* ===== CUSTOM: link display enhancement (chip links + polished preview card) ===== */
+
+/* --- 1. 正文里的纯 URL 链接：胶囊标签样式 --- */
+.status__content a.unhandled-link,
+.reply-indicator__content a.unhandled-link {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  vertical-align: bottom;
+  padding: 2px 10px;
+  margin: 1px 2px;
+  border-radius: 999px;
+  background: rgb(from var(--color-text-brand) r g b / 10%);
+  color: var(--color-text-brand);
+  font-size: 0.92em;
+  line-height: 1.5;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &::before {
+    content: '';
+    flex: 0 0 auto;
+    display: inline-block;
+    width: 0.95em;
+    height: 0.95em;
+    margin-inline-end: 5px;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z'/%3E%3C/svg%3E")
+      no-repeat center / contain;
+  }
+
+  span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover,
+  &:focus {
+    background: rgb(from var(--color-text-brand) r g b / 20%);
+    text-decoration: none;
+
+    span {
+      text-decoration: none;
+    }
+  }
+}
+
+/* --- 2. 链接预览卡片：圆角 + 悬停浮起 + 多行描述 --- */
+.status-card {
+  border-radius: 12px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  &.bottomless {
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+a.status-card {
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+    border-color: rgb(from var(--color-text-brand) r g b / 55%);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 10%);
+  }
+}
+
+.status-card__content {
+  padding: 14px 16px;
+}
+
+.status-card__host {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  opacity: 0.75;
+  margin-bottom: 6px;
+
+  &::before {
+    content: '';
+    flex: 0 0 auto;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm7.93 9h-3.98c-.13-2.4-.73-4.62-1.72-6.32A8.02 8.02 0 0 1 19.93 11zM12 4.04c1.1 1.44 1.85 3.83 2 6.96h-4c.15-3.13.9-5.52 2-6.96zM4.07 13h3.98c.13 2.4.73 4.62 1.72 6.32A8.02 8.02 0 0 1 4.07 13zm3.98-2H4.07a8.02 8.02 0 0 1 5.7-6.32C8.78 6.38 8.18 8.6 8.05 11zM12 19.96c-1.1-1.44-1.85-3.83-2-6.96h4c-.15 3.13-.9 5.52-2 6.96zm2.23-.64c.99-1.7 1.59-3.92 1.72-6.32h3.98a8.02 8.02 0 0 1-5.7 6.32z'/%3E%3C/svg%3E")
+      no-repeat center / contain;
+  }
+}
+
+.status-card__title {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.status-card__description {
+  white-space: normal;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.status-card__image,
+.status-card__image-image,
+.status-card__image-preview {
+  border-start-start-radius: 12px;
+  border-end-start-radius: 12px;
+}
+
+.status-card.expanded .status-card__image,
+.status-card.expanded .status-card__image-image,
+.status-card.expanded .status-card__image-preview {
+  border-start-start-radius: 12px;
+  border-start-end-radius: 12px;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+/* ===== END CUSTOM link display enhancement ===== */
+/* ===== CUSTOM: mashiro-style tags (inspired by mashirozx/mastodon "小森林") ===== */
+
+/* 嘟文底部话题栏：虚线描边胶囊（小森林招牌样式） */
+.hashtag-bar {
+  gap: 8px;
+
+  a {
+    color: var(--color-text-brand);
+    background: var(--color-bg-brand-softest);
+    border: 1px dashed color-mix(in oklab, var(--color-text-brand) 55%, transparent);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-weight: 500;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: var(--color-bg-brand-soft);
+      border-color: var(--color-text-brand);
+      border-style: solid;
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+  }
+}
+
+/* 正文里的 #话题 与 @提及：同款虚线胶囊 */
+.status__content a.hashtag,
+.status__content a.mention:not(.hashtag),
+.reply-indicator__content a.hashtag,
+.reply-indicator__content a.mention:not(.hashtag) {
+  display: inline-block;
+  color: var(--color-text-brand);
+  background: var(--color-bg-brand-softest);
+  border: 1px dashed color-mix(in oklab, var(--color-text-brand) 55%, transparent);
+  border-radius: 6px;
+  padding: 0 6px;
+  margin: 1px 2px;
+  line-height: 1.5;
+  text-decoration: none !important;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  span {
+    text-decoration: none !important;
+  }
+
+  &:hover,
+  &:focus {
+    background: var(--color-bg-brand-soft);
+    border-color: var(--color-text-brand);
+    border-style: solid;
+    text-decoration: none !important;
+  }
+}
+
+/* @提及用实心浅底做轻微区分（不带虚线，更像徽章） */
+.status__content a.mention:not(.hashtag),
+.reply-indicator__content a.mention:not(.hashtag) {
+  border-style: solid;
+  border-color: transparent;
+}
+
+/* 被静音/折叠的嘟文里降低标签存在感 */
+.muted .status__content a.hashtag,
+.muted .status__content a.mention {
+  color: var(--color-text-secondary);
+  border-color: color-mix(in oklab, var(--color-text-secondary) 40%, transparent);
+  background: transparent;
+}
+
+/* 侧栏「流行趋势」里的话题名同步品牌色 */
+.trends__item__name a {
+  color: var(--color-text-brand);
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+/* 引用块美化（源自小森林 markdown 风格，适配新版变量） */
+.status__content__text blockquote,
+.reply-indicator__content blockquote {
+  padding-inline-start: 10px;
+  border-inline-start: 3px solid color-mix(in oklab, var(--color-text-brand) 60%, transparent);
+  color: var(--color-text-secondary);
+  background: color-mix(in oklab, var(--color-bg-brand-softest) 60%, transparent);
+  border-radius: 0 6px 6px 0;
+}
+/* ===== END CUSTOM: mashiro-style tags ===== */
+
+/* CUSTOM: long-post reading enhancements (fold mask + progress bar) */
+.status__content.status__content--collapsed {
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+}
+
+.status__content__read-more-button {
+  padding: 4px 14px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-text-brand) 12%, transparent);
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: color-mix(in srgb, var(--color-text-brand) 24%, transparent);
+  }
+}
+
+.status__content__progress {
+  position: relative;
+  height: 3px;
+  margin: 0 0 10px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--color-text-brand) 14%, transparent);
+  overflow: hidden;
+}
+
+.status__content__progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 2px;
+  background: var(--color-text-brand);
+  transition: width 0.08s linear;
+}
+
+
+// CUSTOM: markdown content styles
+.status__content {
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 0.6em 0 0.3em;
+    font-weight: 700;
+    color: var(--color-text-primary);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.32em; }
+  h3 { font-size: 1.18em; }
+  h4 { font-size: 1.06em; }
+  h5 { font-size: 1em; }
+  h6 { font-size: 0.92em; color: var(--color-text-secondary); }
+
+  ul,
+  ol {
+    margin: 0.45em 0;
+    padding-inline-start: 1.5em;
+  }
+
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+
+  li { margin: 0.22em 0; }
+
+  pre {
+    margin: 0.6em 0;
+    padding: 0.85em 1em;
+    border-radius: 10px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.5;
+
+    code {
+      padding: 0;
+      border: 0;
+      background: none;
+      font-size: 1em;
+    }
+  }
+
+  code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    padding: 0.12em 0.4em;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--color-text-brand) 14%, var(--color-background));
+    border: 1px solid color-mix(in srgb, var(--color-text-brand) 22%, var(--color-border));
+    color: var(--color-text-brand);
+  }
+
+  blockquote {
+    margin: 0.45em 0;
+    padding-inline-start: 0.85em;
+    border-inline-start: 3px solid var(--color-text-brand);
+    color: var(--color-text-secondary);
+  }
+}
+
+/* ===== CUSTOM: featured-carousel pinned posts as floating card ===== */
+.featured-carousel {
+  // CUSTOM: turn the pinned-posts strip into a rounded floating card
+  border-bottom: 0;
+  margin: 0 16px 12px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 16px;
+  background: var(--color-bg-secondary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+
+  [data-color-scheme='dark'] & {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  &__header {
+    padding: 12px 16px;
+  }
+
+  &__slide .status {
+    border-radius: 0;
+    background: transparent;
+  }
+}
+/* ===== END CUSTOM: featured-carousel pinned posts as floating card ===== */
+
+/* ===== CUSTOM: about page paper cards ===== */
+.about {
+  @media screen and (min-width: $no-gap-breakpoint) {
+    border-radius: 12px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  &__header__hero {
+    border-radius: 12px;
+  }
+
+  &__meta {
+    border-radius: 12px;
+    background: var(--color-bg-secondary);
+  }
+}
+/* ===== END CUSTOM: about page paper cards ===== */

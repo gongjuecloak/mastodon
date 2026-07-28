@@ -27,9 +27,12 @@ $fluid-breakpoint: $maximum-width + 20px;
 
   li {
     position: relative;
-    border-bottom: 1px solid var(--color-border-primary);
-    padding: 1em 1.75em;
-    padding-inline-start: 3em;
+    border: 1px solid var(--color-border-primary);
+    border-radius: 12px;
+    background: var(--color-bg-secondary);
+    margin-bottom: 8px;
+    padding: 1em 1.5em;
+    padding-inline-start: 3.25em;
     font-weight: 500;
     counter-increment: list-counter;
     min-height: 4ch;
@@ -37,7 +40,7 @@ $fluid-breakpoint: $maximum-width + 20px;
     &::before {
       content: counter(list-counter);
       position: absolute;
-      inset-inline-start: 0;
+      inset-inline-start: 0.75em;
       top: 1em;
       background: var(--color-bg-brand-base);
       color: var(--color-text-on-brand-base);
@@ -51,7 +54,8 @@ $fluid-breakpoint: $maximum-width + 20px;
     }
 
     &:last-child {
-      border-bottom: 0;
+      margin-bottom: 0;
+      border: 1px solid var(--color-border-primary);
     }
   }
 
